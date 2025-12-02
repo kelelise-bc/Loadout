@@ -1,0 +1,265 @@
+/* =========================================================
+   Loadout Color Palette (Kelly Elise + Nova)
+   =========================================================
+   Primary Colors:
+     Deep Amethyst:      #533a71
+     Midnight Plum:      #2f1f3b
+     Warm Mauve:         #7d5a81
+
+   Metallic Accents:
+     Rose Gold:          #cfa98c
+     Tiger's Eye Amber:  #ad7b32
+
+   Gem Secondaries:
+     Opal Glow:          #c8d4e5
+     Deep Jade:          #23665c
+
+   Neutrals:
+     Porcelain:          #f5f2f4
+     Graphite Shadow:    #1d1b20
+   ========================================================= */
+
+/* ===== CSS Variables ===== */
+:root {
+  /* Primary */
+  --amethyst-deep: #533a71;
+  --midnight-plum: #2f1f3b;
+  --warm-mauve: #7d5a81;
+
+  /* Metallic Accents */
+  --rose-gold: #cfa98c;
+  --tigers-eye-amber: #ad7b32;
+
+  /* Gem Secondaries */
+  --opal-glow: #c8d4e5;
+  --deep-jade: #23665c;
+
+  /* Neutrals */
+  --porcelain: #f5f2f4;
+  --graphite-shadow: #1d1b20;
+
+  /* Tile Surface (lighter amethyst for contrast) */
+  --amethyst-light: #6a4a8a;
+}
+
+/* ===== Global ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+
+  background: linear-gradient(
+    160deg,
+    var(--deep-jade) 0%,
+    #1a1324 40%,
+    #0d0a12 100%
+  );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Update Loadout Container */
+.loadout-container {
+  display: grid;
+
+  grid-template-columns:
+    2fr
+    300px
+    1fr
+    300px
+    2fr;
+
+  grid-template-rows:
+    1fr
+    300px
+    1fr
+    300px
+    1fr;
+
+  min-height: 100vh; /* was height:100vh */
+  height: auto; /* allow overflow */
+  width: 100%;
+
+  justify-items: center;
+  align-items: center;
+
+  gap: 60px;
+  padding: 40px 0; /* NEW — prevents bottom cutoff */
+}
+
+/* ===== Loadout Grid ===== */
+.loadout-container {
+  display: grid;
+  grid-template-columns:
+    2fr
+    300px
+    1fr
+    300px
+    2fr;
+
+  grid-template-rows:
+    1fr
+    300px
+    1fr
+    300px
+    1fr;
+
+  height: 100vh;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  gap: 80px;
+}
+
+/* ===== Base Tile Style ===== */
+.tile,
+.center-tile {
+  width: 250px;
+  height: 250px;
+  background: var(--amethyst-light);
+  border: 1px solid var(--rose-gold);
+  border-radius: 150px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+
+  /* Tactile + glowing shadow */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.7),
+    0 0 28px rgba(207, 169, 140, 0.55);
+
+  color: var(--porcelain);
+  font-weight: 100;
+  transition: all 0.22s ease;
+  cursor: pointer;
+}
+
+/* ===== Hover Effect ===== */
+.tile:hover,
+.center-tile:hover {
+  transform: translateY(-8px);
+  background: var(--warm-mauve);
+  border-color: var(--tigers-eye-amber);
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75),
+    0 0 35px rgba(207, 169, 140, 0.65);
+}
+
+/* ===== Center Tile ===== */
+.center-tile {
+  background: var(--midnight-plum);
+  border-color: var(--tigers-eye-amber);
+  font-weight: 300;
+  font-size: larger;
+}
+
+/* ===== Grid Placement ===== */
+.center {
+  grid-row: 3;
+  grid-column: 3;
+}
+
+.tile-1 {
+  grid-row: 2;
+  grid-column: 3;
+} /* top */
+.tile-2 {
+  grid-row: 3;
+  grid-column: 4;
+} /* right */
+.tile-3 {
+  grid-row: 4;
+  grid-column: 3;
+} /* bottom */
+.tile-4 {
+  grid-row: 3;
+  grid-column: 2;
+} /* left */
+
+.tile-5 {
+  grid-row: 4;
+  grid-column: 2;
+} /* bottom-left */
+.tile-6 {
+  grid-row: 2;
+  grid-column: 2;
+} /* top-left */
+.tile-7 {
+  grid-row: 2;
+  grid-column: 4;
+} /* top-right */
+.tile-8 {
+  grid-row: 4;
+  grid-column: 4;
+} /* bottom-right */
+
+/* /* =========================================
+   RESPONSIVE BREAKPOINTS
+   ========================================= */
+
+/* ===== LARGE TABLET / SMALL DESKTOP (iPad landscape ~1024px) ===== */
+@media (max-width: 1200px) {
+  /* Slightly reduce tile size so full ring fits */
+  .tile,
+  .center-tile {
+    width: 220px;
+    height: 220px;
+  }
+
+  .loadout-container {
+    gap: 40px;
+
+    grid-template-columns:
+      1fr
+      220px
+      1fr
+      220px
+      1fr;
+
+    grid-template-rows:
+      1fr
+      220px
+      1fr
+      220px
+      1fr;
+
+    padding: 30px 0;
+    min-height: 100vh;
+  }
+}
+
+/* ===== TABLET VIEW (3 columns) ===== */
+@media (max-width: 900px) {
+  .loadout-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 40px;
+    padding: 40px;
+  }
+
+  /* Reset tile positions to auto-flow */
+  .tile,
+  .center-tile {
+    grid-row: auto !important;
+    grid-column: auto !important;
+  }
+}
+
+/* ===== MOBILE VIEW (1 column) ===== */
+@media (max-width: 600px) {
+  .loadout-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 30px;
+  }
+
+  .tile,
+  .center-tile {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+}
