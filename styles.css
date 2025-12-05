@@ -1,25 +1,6 @@
 /* =========================================================
    Loadout Color Palette (Kelly Elise + Nova)
-   =========================================================
-   Primary Colors:
-     Deep Amethyst:      #533a71
-     Midnight Plum:      #2f1f3b
-     Warm Mauve:         #7d5a81
-
-   Metallic Accents:
-     Rose Gold:          #cfa98c
-     Tiger's Eye Amber:  #ad7b32
-
-   Gem Secondaries:
-     Opal Glow:          #c8d4e5
-     Deep Jade:          #23665c
-
-   Neutrals:
-     Porcelain:          #f5f2f4
-     Graphite Shadow:    #1d1b20
    ========================================================= */
-
-/* ===== CSS Variables ===== */
 :root {
   /* Primary */
   --amethyst-deep: #533a71;
@@ -38,12 +19,18 @@
   --porcelain: #f5f2f4;
   --graphite-shadow: #1d1b20;
 
-  /* Tile Surface (lighter amethyst for contrast) */
+  /* Tile Surface */
   --amethyst-light: #6a4a8a;
 }
 
 /* ===== Global ===== */
+
+/*body {
+  border: 10px solid hotpink !important;
+}*/
+html,
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
@@ -58,151 +45,363 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+* {
+  box-sizing: border-box;
+}
 
-/* Update Loadout Container */
+/* =========================================================
+   GRID LAYOUT
+   ========================================================= */
 .loadout-container {
   display: grid;
 
-  grid-template-columns:
-    2fr
-    300px
-    1fr
-    300px
-    2fr;
+  /* 3 columns of 300px tiles */
+  grid-template-columns: repeat(3, 280px);
+  grid-auto-rows: 270px;
 
-  grid-template-rows:
-    1fr
-    300px
-    1fr
-    300px
-    1fr;
+  justify-content: center; /* center the whole grid horizontally */
+  align-items: start; /* near the top of the viewport */
+  justify-items: center; /* center each tile in its cell */
 
-  min-height: 100vh; /* was height:100vh */
-  height: auto; /* allow overflow */
-  width: 100%;
-
-  justify-items: center;
-  align-items: center;
-
-  gap: 60px;
-  padding: 40px 0; /* NEW — prevents bottom cutoff */
+  column-gap: 40px;
+  row-gap: 60px;
+  padding: 70px; /*top/bottom only right now*/
 }
-
-/* ===== Loadout Grid ===== */
-.loadout-container {
-  display: grid;
-  grid-template-columns:
-    2fr
-    300px
-    1fr
-    300px
-    2fr;
-
-  grid-template-rows:
-    1fr
-    300px
-    1fr
-    300px
-    1fr;
-
-  height: 100vh;
-  width: 100%;
-  justify-items: center;
-  align-items: center;
-  gap: 80px;
-}
-
-/* ===== Base Tile Style ===== */
+/* =========================================================
+   TILE BASE STYLE (SQUIRCLE)
+   ========================================================= */
 .tile,
 .center-tile {
-  width: 250px;
-  height: 250px;
+  width: 280px;
+  height: 280px;
+
   background: var(--amethyst-light);
-  border: 1px solid var(--rose-gold);
-  border-radius: 150px;
+  border: 6px solid var(--rose-gold);
+
+  /* REALISTIC SQUIRCLE FEEL (works everywhere) */
+  border-radius: 55px;
+  filter: saturate(1.15);
 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 20px;
 
-  /* Tactile + glowing shadow */
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.7),
-    0 0 28px rgba(207, 169, 140, 0.55);
+  padding: 40px;
 
-  color: var(--porcelain);
-  font-weight: 100;
-  transition: all 0.22s ease;
+  /* Soft squircle illusion (inner + outer glow) */
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.25), 0 8px 16px rgba(0, 0, 0, 0.45),
+    0 0 22px rgba(207, 169, 140, 0.35);
+
+  color: transparent;
+  font-weight: 200;
+  transition: all 0.25s ease;
   cursor: pointer;
 }
-
-/* ===== Hover Effect ===== */
+/* =========================================================
+   HOVER EFFECT (ALL TILES)
+   ========================================================= */
 .tile:hover,
 .center-tile:hover {
-  transform: translateY(-8px);
+  transform: translateY(-10px);
   background: var(--warm-mauve);
   border-color: var(--tigers-eye-amber);
+  color: var(--porcelain);
 
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75),
-    0 0 35px rgba(207, 169, 140, 0.65);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75), 0 0 40px rgba(207, 169, 140, 0.7);
 }
 
-/* ===== Center Tile ===== */
+/* =========================================================
+   CENTER TILE (YOU)
+   ========================================================= */
 .center-tile {
   background: var(--midnight-plum);
   border-color: var(--tigers-eye-amber);
   font-weight: 300;
-  font-size: larger;
+  font-size: 1.3rem;
+}
+/* =========================================================
+   GRID 
+   ========================================================= */
+/* Center tile (YOU) in the middle */
+.center {
+  grid-row: 2;
+  grid-column: 2;
+
+  background-image: url("images/you-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-/* ===== Grid Placement ===== */
-.center {
-  grid-row: 3;
-  grid-column: 3;
+/* Top row */
+.tile-6 {
+  /* Weather */
+  grid-row: 1;
+  grid-column: 1;
+  background-image: url("images/weather-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .tile-1 {
-  grid-row: 2;
-  grid-column: 3;
-} /* top */
-.tile-2 {
-  grid-row: 3;
-  grid-column: 4;
-} /* right */
-.tile-3 {
-  grid-row: 4;
-  grid-column: 3;
-} /* bottom */
-.tile-4 {
-  grid-row: 3;
+  /* Flying */
+  grid-row: 1;
   grid-column: 2;
-} /* left */
+  background-image: url("images/flying3-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
-.tile-5 {
-  grid-row: 4;
-  grid-column: 2;
-} /* bottom-left */
-.tile-6 {
-  grid-row: 2;
-  grid-column: 2;
-} /* top-left */
 .tile-7 {
+  /* Lodging */
+  grid-row: 1;
+  grid-column: 3;
+  background-image: url("images/lodging-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Middle row (left/right of YOU) */
+.tile-4 {
+  /* Pets */
   grid-row: 2;
-  grid-column: 4;
-} /* top-right */
+  grid-column: 1;
+  background-image: url("images/pets-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tile-2 {
+  /* Road Trip */
+  grid-row: 2;
+  grid-column: 3;
+  background-image: url("images/roadtrip-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Bottom row */
+.tile-5 {
+  /* Minimalist */
+  grid-row: 3;
+  grid-column: 1;
+  background-image: url("images/minimalist-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tile-3 {
+  /* Backpacking */
+  grid-row: 3;
+  grid-column: 2;
+  background-image: url("images/backpacking-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .tile-8 {
-  grid-row: 4;
-  grid-column: 4;
-} /* bottom-right */
+  /* Activities */
+  grid-row: 3;
+  grid-column: 3;
+  background-image: url("images/activities-icon.png");
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
-/* /* =========================================
+/* =========================================================
+   MODAL OVERLAY & SHEET
+   ========================================================= */
+
+.modal-overlay {
+  opacity: 0;
+  pointer-events: none; /* <- important */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 900;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto; /* <- only active can block */
+}
+
+/* modal form/sheet */
+.modal-sheet {
+  position: fixed;
+  left: 50%;
+  bottom: 10%; /* your chosen vertical position */
+  width: 480px;
+  max-height: 75vh;
+
+  background: #c8cae5;
+  border-radius: 32px;
+  z-index: 1000; /* ✅ keep this */
+
+  /* animation-ready state (hidden but present) */
+  opacity: 0;
+  transform: translate(-50%, 30%) scale(0.92);
+  pointer-events: none;
+
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.modal-sheet.active {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+  pointer-events: auto;
+}
+
+/* styled but not coded, visual only */
+.modal-handle {
+  width: 60px;
+  height: 6px;
+  background: #b4c0d3;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.modal-close {
+  position: absolute;
+  right: 20px;
+  top: 8px;
+  font-size: 28px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #1d1b20;
+}
+
+/* ===== Modal Content ===== */
+.modal-content {
+  padding: 20px 24px 10px;
+  overflow-y: auto;
+  max-height: calc(75vh - 120px);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: #1d1b20;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 14px;
+  border-radius: 8px;
+  border: 1px solid #a8b4c9;
+  font-size: 15px;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: var(--warm-mauve);
+}
+
+input[type="checkbox"]:hover {
+  filter: drop-shadow(0 0 3px var(--warm-mauve));
+}
+/* remove native look */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 14px;
+  height: 14px;
+
+  border: 2px solid var(--rose-gold);
+  border-radius: 50%;
+
+  background: var(--porcelain);
+  /*cursor: pointer;*/
+  vertical-align: top;
+  top: 2px;
+  position: relative;
+  margin-right: 8px;
+  transition: all 0.2s ease;
+}
+
+/* hover*/
+label:hover input[type="radio"] {
+  filter: drop-shadow(0 0 3px var(--tigers-eye-amber));
+}
+
+/* selected state */
+input[type="radio"]:checked {
+  border-color: var(--tigers-eye-amber);
+}
+
+/* center dot */
+input[type="radio"]:checked::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--tigers-eye-amber);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* focus (keyboard) */
+input[type="radio"]:focus {
+  outline: 2px dashed var(--tigers-eye-amber);
+  outline-offset: 2px;
+}
+.modal-content label {
+  display: block;
+  margin: 6px 0;
+}
+
+fieldset {
+  border: 1px solid #ad7b32; /* your amber */
+  border-radius: 8px;
+  box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.35);
+}
+
+legend {
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6),
+    -1px -1px 1px rgba(0, 0, 0, 0.55);
+  font-weight: 400;
+  color: #1d1b20; /* your dark text */
+  padding: 0 8px;
+}
+
+/* ===== Footer ===== */
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.save-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  background: #ad7b32;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+/*.loadout-container {
+  outline: 3px solid red !important;
+}*/
+/* =========================================================
    RESPONSIVE BREAKPOINTS
-   ========================================= */
-
-/* ===== LARGE TABLET / SMALL DESKTOP (iPad landscape ~1024px) ===== */
-@media (max-width: 1200px) {
-  /* Slightly reduce tile size so full ring fits */
+   ========================================================= */
+/* @media (max-width: 1200px) {
   .tile,
   .center-tile {
     width: 220px;
@@ -211,7 +410,6 @@ body {
 
   .loadout-container {
     gap: 40px;
-
     grid-template-columns:
       1fr
       220px
@@ -227,20 +425,16 @@ body {
       1fr;
 
     padding: 30px 0;
-    min-height: 100vh;
   }
 }
 
-/* ===== TABLET VIEW (3 columns) ===== */
 @media (max-width: 900px) {
   .loadout-container {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
     gap: 40px;
     padding: 40px;
   }
 
-  /* Reset tile positions to auto-flow */
   .tile,
   .center-tile {
     grid-row: auto !important;
@@ -248,7 +442,6 @@ body {
   }
 }
 
-/* ===== MOBILE VIEW (1 column) ===== */
 @media (max-width: 600px) {
   .loadout-container {
     grid-template-columns: 1fr;
@@ -260,6 +453,5 @@ body {
   .center-tile {
     width: 200px;
     height: 200px;
-    margin: 0 auto;
   }
-}
+} */
