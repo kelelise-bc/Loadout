@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loadout</title>
     <link rel="stylesheet" href="styles.css" />
+
     <!-- Google Font: Poppins -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
@@ -13,29 +14,523 @@
   </head>
 
   <body>
+    <!-- ===================== -->
+    <!--     TILE GRID         -->
+    <!-- ===================== -->
     <main class="loadout-container">
       <!-- Top row -->
       <div class="tile tile-6">Weather</div>
-      <!-- top-left -->
       <div class="tile tile-1">Flying</div>
-      <!-- top -->
       <div class="tile tile-7">Lodging</div>
 
       <!-- Middle row -->
       <div class="tile tile-4">Pets</div>
-      <!-- left -->
       <div class="center-tile center">You</div>
-      <!-- center -->
       <div class="tile tile-2">Road Trip</div>
-      <!-- right -->
 
       <!-- Bottom row -->
       <div class="tile tile-5">Minimalist</div>
-      <!-- bottom-left -->
       <div class="tile tile-3">Backpacking</div>
-      <!-- bottom -->
       <div class="tile tile-8">Activities</div>
-      <!-- bottom - right -->
     </main>
+
+    <!-- =========================================================
+     FLYING MODAL TEMPLATE
+     ========================================================= -->
+    <template id="flying-modal-template">
+     
+
+      <label>
+        Destination:
+        <input type="text" id="destination" />
+      </label>
+
+      <fieldset>
+        <legend>Flight Type</legend>
+        <label
+          ><input type="radio" name="flight-type" value="Domestic" />
+          Domestic</label
+        >
+        <label
+          ><input type="radio" name="flight-type" value="International" />
+          International</label
+        >
+      </fieldset>
+
+      <fieldset>
+        <legend>Luggage Plan</legend>
+        <label
+          ><input type="radio" name="luggage" value="carryon" /> Carry-on
+          only</label
+        >
+        <label
+          ><input type="radio" name="luggage" value="carryon+personal" />
+          Carry-on + personal item</label
+        >
+        <label
+          ><input type="radio" name="luggage" value="checked" /> Checked
+          bag</label
+        >
+      </fieldset>
+
+      <fieldset>
+        <legend>Bringing Your Dog?</legend>
+        <label><input type="radio" name="dog" value="yes" /> Yes</label>
+        <label><input type="radio" name="dog" value="no" /> No</label>
+      </fieldset>
+
+      <label>
+        Airline (optional):
+        <select id="airline">
+          <option value="">-- Select Airline --</option>
+          <option value="Alaska">Alaska</option>
+          <option value="Delta">Delta</option>
+          <option value="United">United</option>
+          <option value="Southwest">Southwest</option>
+        </select>
+      </label>
+    </template>
+    <!-- =========================================================
+     END FLYING MODAL TEMPLATE
+     ========================================================= -->
+
+    <!-- =========================================================
+     ROAD TRIP MODAL TEMPLATE
+     ========================================================= -->
+    <template id="roadtrip-modal-template">
+   
+
+      <label>
+        Route / Destination:
+        <input type="text" id="rt-route" />
+      </label>
+
+      <fieldset>
+        <legend>Vehicle Type</legend>
+        <label><input type="radio" name="rt-vehicle" value="Car" /> Car</label>
+        <label><input type="radio" name="rt-vehicle" value="SUV" /> SUV</label>
+        <label
+          ><input type="radio" name="rt-vehicle" value="Truck" /> Truck</label
+        >
+      </fieldset>
+
+      <fieldset>
+        <legend>Trip Length</legend>
+        <label
+          ><input type="radio" name="rt-length" value="Short" /> Short</label
+        >
+        <label
+          ><input type="radio" name="rt-length" value="Weekend" />
+          Weekend</label
+        >
+        <label><input type="radio" name="rt-length" value="Long" /> Long</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Bringing Your Dog?</legend>
+        <label><input type="radio" name="rt-dog" value="yes" /> Yes</label>
+        <label><input type="radio" name="rt-dog" value="no" /> No</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Overnight Plan</legend>
+        <label
+          ><input type="radio" name="rt-overnight" value="Hotel" /> Hotel</label
+        >
+        <label
+          ><input type="radio" name="rt-overnight" value="Camping" />
+          Camping</label
+        >
+        <label
+          ><input type="radio" name="rt-overnight" value="Mixed" /> Mixed</label
+        >
+      </fieldset>
+    </template>
+    <!-- =========================================================
+     END ROAD TRIP MODAL TEMPLATE
+     ========================================================= -->
+
+    <!-- =========================================================
+     BACKPACKING MODAL TEMPLATE
+     ========================================================= -->
+    <template id="backpacking-modal-template">
+    
+
+        <fieldset>
+          <legend>Trip Length</legend>
+          <label
+            ><input type="radio" name="bp-length" value="day" /> Day Trip</label
+          >
+          <label
+            ><input type="radio" name="bp-length" value="overnight" />
+            Overnight</label
+          >
+          <label
+            ><input type="radio" name="bp-length" value="multi" />
+            Multi-Day</label
+          >
+        </fieldset>
+
+        <fieldset>
+          <legend>Terrain</legend>
+          <label
+            ><input type="radio" name="bp-terrain" value="forest" />
+            Forest</label
+          >
+          <label
+            ><input type="radio" name="bp-terrain" value="mountain" />
+            Mountain</label
+          >
+          <label
+            ><input type="radio" name="bp-terrain" value="desert" />
+            Desert</label
+          >
+          <label
+            ><input type="radio" name="bp-terrain" value="mixed" /> Mixed</label
+          >
+        </fieldset>
+
+        <fieldset>
+          <legend>Weather</legend>
+          <label
+            ><input type="checkbox" name="bp-weather" value="rain" />
+            Rain</label
+          >
+          <label
+            ><input type="checkbox" name="bp-weather" value="cold" />
+            Cold</label
+          >
+          <label
+            ><input type="checkbox" name="bp-weather" value="heat" />
+            Heat</label
+          >
+        </fieldset>
+
+        <fieldset>
+          <legend>Weight Preference</legend>
+          <label
+            ><input type="radio" name="bp-weight" value="ultra" />
+            Ultralight</label
+          >
+          <label
+            ><input type="radio" name="bp-weight" value="balanced" />
+            Balanced</label
+          >
+        </fieldset>
+
+        <fieldset>
+          <legend>Bringing Your Dog?</legend>
+          <label><input type="radio" name="bp-dog" value="yes" /> Yes</label>
+          <label><input type="radio" name="bp-dog" value="no" /> No</label>
+        </fieldset>
+      </div>
+    </template>
+    <!-- =========================================================
+     END BACKPACKING MODAL TEMPLATE
+     ========================================================= -->
+     <!-- =========================================================
+   YOU (PROFILE) MODAL TEMPLATE
+   ========================================================= -->
+<template id="you-modal-template">
+
+  <h3 class="modal-section-title">Who are you packing for?</h3>
+
+  <label>
+    Trip Name (optional):
+    <input type="text" id="you-tripname" placeholder="Nashville Weekend" />
+  </label>
+
+  <fieldset>
+    <legend>Travel Style</legend>
+    <label><input type="radio" name="you-style" value="minimalist" /> Minimalist</label>
+    <label><input type="radio" name="you-style" value="balanced" /> Balanced</label>
+    <label><input type="radio" name="you-style" value="prepared" /> Fully Prepared</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Who are you packing for?</legend>
+    <label><input type="checkbox" name="you-people" value="me" /> Me</label>
+    <label><input type="checkbox" name="you-people" value="partner" /> Partner / Other Adult</label>
+    <label><input type="checkbox" name="you-people" value="kids" /> Kids</label>
+    <label><input type="checkbox" name="you-people" value="dog" /> Dog</label>
+    <label><input type="checkbox" name="you-people" value="other" /> Other Pet</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Vehicle</legend>
+    <select id="you-vehicle">
+      <option value="">-- Select Vehicle --</option>
+      <option value="compact">Compact Car</option>
+      <option value="sedan">Sedan</option>
+      <option value="small-suv">Small SUV</option>
+      <option value="large-suv">Large SUV</option>
+      <option value="van">Van</option>
+      <option value="truck">Truck</option>
+      <option value="other">Other</option>
+    </select>
+  </fieldset>
+
+</template>
+<!-- =========================================================
+   END YOU MODAL TEMPLATE
+   ========================================================= -->
+   <!-- =========================================================
+     WEATHER MODAL TEMPLATE
+     ========================================================= -->
+<template id="weather-modal-template">
+ 
+    <!-- Destination -->
+    <label>
+      Destination (optional):
+      <input type="text" id="wx-destination" />
+    </label>
+
+    <!-- Climate Expectations -->
+    <fieldset>
+      <legend>Climate Expectations</legend>
+      <label><input type="radio" name="wx-climate" value="mild" /> Mild / Moderate</label>
+      <label><input type="radio" name="wx-climate" value="cold" /> Cold / Winter</label>
+      <label><input type="radio" name="wx-climate" value="hot" /> Hot / High Heat</label>
+      <label><input type="radio" name="wx-climate" value="rainy" /> Rainy / Wet</label>
+      <label><input type="radio" name="wx-climate" value="unknown" /> Don’t Know</label>
+    </fieldset>
+
+    <!-- Temperature Range -->
+    <fieldset>
+      <legend>Temperature Range</legend>
+      <label>Low: <input type="text" id="wx-low" style="width:60px" /> °</label>
+      <label>High: <input type="text" id="wx-high" style="width:60px" /> °</label>
+    </fieldset>
+
+    <!-- Environmental Factors -->
+    <fieldset>
+      <legend>Environmental Factors</legend>
+      <label><input type="checkbox" name="wx-factors" value="uv" /> High UV</label>
+      <label><input type="checkbox" name="wx-factors" value="windy" /> Windy / Gusty</label>
+      <label><input type="checkbox" name="wx-factors" value="humid" /> Humid</label>
+      <label><input type="checkbox" name="wx-factors" value="bugs" /> Bug Heavy</label>
+    </fieldset>
+  </div>
+
+</template>
+<!-- =========================================================
+     END WEATHER MODAL TEMPLATE
+     ========================================================= -->
+     <!-- =========================================================
+     LODGING MODAL TEMPLATE
+     ========================================================= -->
+<template id="lodging-modal-template">
+
+
+  <label>
+    Where are you staying?
+    <input type="text" id="lodging-location" placeholder="Optional" />
+  </label>
+
+  <fieldset>
+    <legend>Lodging Type</legend>
+    <label><input type="radio" name="lodging-type" value="hotel" /> Hotel</label>
+    <label><input type="radio" name="lodging-type" value="rental" /> Short-Term Rental (Airbnb/VRBO)</label>
+    <label><input type="radio" name="lodging-type" value="friend-family" /> Staying with Friends/Family</label>
+    <label><input type="radio" name="lodging-type" value="camping" /> Camping</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Length of Stay</legend>
+    <label><input type="radio" name="lodging-length" value="short" /> 1–2 Nights</label>
+    <label><input type="radio" name="lodging-length" value="weekend" /> Weekend</label>
+    <label><input type="radio" name="lodging-length" value="week" /> About a Week</label>
+    <label><input type="radio" name="lodging-length" value="extended" /> Extended</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Sleeping Arrangements</legend>
+    <label><input type="radio" name="lodging-bed" value="single" /> Single Bed</label>
+    <label><input type="radio" name="lodging-bed" value="shared" /> Shared Bed</label>
+    <label><input type="radio" name="lodging-bed" value="multiple" /> Multiple Beds / Rooms</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Amenities (optional)</legend>
+    <label><input type="checkbox" name="amenities" value="kitchen" /> Kitchen</label>
+    <label><input type="checkbox" name="amenities" value="laundry" /> Laundry</label>
+    <label><input type="checkbox" name="amenities" value="pool" /> Pool/Hot Tub</label>
+    <label><input type="checkbox" name="amenities" value="pets-allowed" /> Pets Allowed</label>
+  </fieldset>
+
+</template>
+<!-- =========================================================
+     END LODGING MODAL TEMPLATE
+     ========================================================= -->
+     <!-- =========================================================
+     MINIMALIST MODAL TEMPLATE
+     ========================================================= -->
+<template id="minimalist-modal-template">
+
+
+  <fieldset>
+    <legend>How light do you want to pack?</legend>
+    <label>
+      <input type="radio" name="min-level" value="ultra" />
+      Lightest possible
+    </label>
+    <label>
+      <input type="radio" name="min-level" value="light-comfort" />
+      Light but comfortable
+    </label>
+    <label>
+      <input type="radio" name="min-level" value="no-preference" />
+      Don’t worry about it
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>What can we reduce?</legend>
+    <label>
+      <input type="checkbox" name="min-reduce" value="outfits" />
+      Fewer outfits
+    </label>
+    <label>
+      <input type="checkbox" name="min-reduce" value="shoes" />
+      Fewer shoes
+    </label>
+    <label>
+      <input type="checkbox" name="min-reduce" value="toiletries" />
+      Slimmer toiletries
+    </label>
+    <label>
+      <input type="checkbox" name="min-reduce" value="tech" />
+      Less tech / gadgets
+    </label>
+  </fieldset>
+
+  <label>
+    Non-negotiables (optional):
+    <textarea
+      id="min-nonnegotiables"
+      rows="3"
+      placeholder="Things you refuse to leave behind..."
+    ></textarea>
+  </label>
+
+</template>
+<!-- =========================================================
+     END MINIMALIST MODAL TEMPLATE
+     ========================================================= -->
+     
+     <!-- =========================================================
+     PETS MODAL TEMPLATE
+     ========================================================= -->
+<template id="pets-modal-template">
+
+
+  <fieldset>
+    <legend>Bringing a pet?</legend>
+    <label>
+      <input type="radio" name="pet-bring" value="yes" />
+      Yes
+    </label>
+    <label>
+      <input type="radio" name="pet-bring" value="no" />
+      No
+    </label>
+  </fieldset>
+
+  <div id="pet-details-section">
+
+    <fieldset>
+      <legend>Species</legend>
+      <label><input type="radio" name="pet-type" value="dog" /> Dog</label>
+      <label><input type="radio" name="pet-type" value="cat" /> Cat</label>
+      <label><input type="radio" name="pet-type" value="other" /> Other</label>
+    </fieldset>
+
+    <label>
+      Pet Size:
+      <select id="pet-size">
+        <option value="">-- Select --</option>
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+    </label>
+
+    <fieldset>
+      <legend>Needs</legend>
+      <label><input type="checkbox" name="pet-needs" value="food" /> Food</label>
+      <label><input type="checkbox" name="pet-needs" value="water" /> Water & Bowl</label>
+      <label><input type="checkbox" name="pet-needs" value="bed" /> Bed / Crate</label>
+      <label><input type="checkbox" name="pet-needs" value="meds" /> Medications</label>
+      <label><input type="checkbox" name="pet-needs" value="waste" /> Waste bags / Litter</label>
+    </fieldset>
+
+  </div>
+
+</template>
+<!-- =========================================================
+     END PETS MODAL TEMPLATE
+     ========================================================= -->
+     <!-- =========================================================
+     ACTIVITIES MODAL TEMPLATE
+     ========================================================= -->
+<template id="activities-modal-template">
+
+
+  <fieldset>
+    <legend>Primary Activities</legend>
+
+    <label><input type="checkbox" name="act" value="hiking" /> Hiking</label>
+    <label><input type="checkbox" name="act" value="sightseeing" /> Sightseeing</label>
+    <label><input type="checkbox" name="act" value="beach" /> Beach</label>
+    <label><input type="checkbox" name="act" value="urban" /> Urban walking</label>
+    <label><input type="checkbox" name="act" value="photography" /> Photography</label>
+    <label><input type="checkbox" name="act" value="running" /> Running</label>
+    <label><input type="checkbox" name="act" value="camping" /> Camping</label>
+    <label><input type="checkbox" name="act" value="sports" /> Sports / Events</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Special Gear?</legend>
+    <label><input type="checkbox" name="act-special" value="water" /> Water gear</label>
+    <label><input type="checkbox" name="act-special" value="snow" /> Snow / Winter gear</label>
+    <label><input type="checkbox" name="act-special" value="technical" /> Technical gear</label>
+  </fieldset>
+
+  <label>
+    Extra Notes:
+    <textarea id="act-notes" rows="3" placeholder="Optional"></textarea>
+  </label>
+
+</template>
+<!-- =========================================================
+     END ACTIVITIES MODAL TEMPLATE
+     ========================================================= -->
+
+    <!-- ===================== -->
+    <!--     MODAL OVERLAY     -->
+    <!-- ===================== -->
+
+    <div id="modal-overlay" class="modal-overlay">
+      <div id="modal-sheet" class="modal-sheet">
+        <div class="modal-header">
+          <div class="modal-handle"></div>
+          <button id="close-modal" class="modal-close">✕</button>
+        </div>
+
+        <div class="modal-content">
+          <h2 id="modal-title"></h2>
+          <div id="modal-body"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="save-modal" class="save-btn">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== -->
+    <!--     JAVASCRIPT        -->
+    <!-- ===================== -->
+    <script src="script.js"></script>
   </body>
 </html>
